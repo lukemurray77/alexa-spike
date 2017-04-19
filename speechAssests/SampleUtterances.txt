@@ -1,1 +1,2 @@
-NewGameIntent begin a game
+PlayGame Play a round
+MakeGuess I think it's {Artist}

@@ -1,8 +1,17 @@
 {
     "intents": [
+    {
+      "intent": "MakeGuess",
+      "slots": [
         {
-            "intent": "NewGameIntent"
+          "name": "Artist",
+          "type": "LIST_OF_ARTISTS"
         }
-    ]
+      ]
+    },
+    {
+        "intent": "PlayGame"
+    }
+]
     
 }
