@@ -73,6 +73,7 @@ AlexaSkill.prototype.intentHandlers = {};
 
 AlexaSkill.prototype.execute = function (event, context) {
     try {
+        console.log(event)
         console.log("session applicationId: " + event.session.application.applicationId);
 
         // Validate that this request originated from authorized source.

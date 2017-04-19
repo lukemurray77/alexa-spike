@@ -1,6 +1,8 @@
 const AlexaSkill = require('./AlexaSkill');
-const APP_ID = 'arn:aws:lambda:us-east-1:317727103076:function:guessTheLyric';
-
+// const APP_ID = 'amzn1.echo-sdk-ams.app.[86ad5fee-83fe-45fc-8e28-a421049b0185]';
+const APP_ID = 'amzn1.ask.skill.86ad5fee-83fe-45fc-8e28-a421049b0185';
+// var APP_ID = 'amzn1.ask.skill.76ee6116-a28c-4fba-b21e-a49eacd9c946'; //OPTIONAL: replace with "amzn1.echo-sdk-ams.app.
+// amzn1.echo-sdk-ams.app.[your-unique-value-here]
 'use strict';
 
 var GuessTheLyric = function () {
@@ -57,7 +59,8 @@ function PlayGame (intent, session, response) {
 }
 
 function MakeGuess (intent, session, response) {
-    var guess = intent.slots.Artist;
+    var guess = getPlayerAnswer(intent.slots.Artist.value);
+
     if (guess === 'biggie') {
                 response.tell('yes');
     }
@@ -72,3 +75,17 @@ exports.handler = function (event, context) {
     var guessTheLyric = new GuessTheLyric();
     guessTheLyric.execute(event, context);
 };
+function getPlayerAnswer (recognizedPlayerAnswer) {
+            if (!recognizedPlayerAnswer) {
+                return undefined;
+            }
+            var split = recognizedPlayerAnswer.indexOf(' '), newAnswer;
+
+            if (split < 0) {
+                newAnswer = recognizedPlayerAnswer;
+            } else {
+                //the Answer should only contain a first Answer, so ignore the second part if any
+                newAnswer = recognizedPlayerAnswer.substring(0, split);
+            }
+            return newAnswer;
+        }
