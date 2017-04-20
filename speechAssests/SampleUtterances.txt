@@ -1,2 +1,2 @@
 PlayGame Play a round
-MakeGuess I think it's {Artist}
+MakeGuess I think it is {Artist}
