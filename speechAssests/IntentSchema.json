@@ -5,7 +5,7 @@
       "slots": [
         {
           "name": "Artist",
-          "type": "LIST_OF_ARTISTS"
+          "type": "AMAZON.Artist"
         }
       ]
     },
