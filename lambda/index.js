@@ -10,21 +10,23 @@ exports.handler = function (event, context, callback) {
 
 var handlers = {
     'LaunchRequest': function () {
-        this.event.session.attributes.data = _.shuffle(data);
-        this.event.session.attributes.currentIndex = 0;
-        this.event.session.attributes.score = 0;
+        var sesh = this.event.session.attributes;
+        sesh.data = _.shuffle(data);
+        sesh.currentIndex = 0;
+        sesh.score = 0;
         this.emit(':ask', 'Welcome to Guess the Lyric, are you ready to play?', 'Shall we begin?');
     },
 
     'PlayGame': function () {
-        this.event.session.attributes.correctAnswer = this.event.session.attributes.data[this.event.session.attributes.currentIndex].correctAnswer;
-        var answers = _.shuffle(this.event.session.attributes.data[this.event.session.attributes.currentIndex].Answers);
-        this.emit(':ask', `Here we go <break time='1s'/> ${this.event.session.attributes.data[this.event.session.attributes.currentIndex].lyric}, is it A, ${answers[0]}, B, ${answers[1]}, or C, ${answers[2]}`, 'how can I help?');
+        var sesh = this.event.session.attributes;
+        sesh.correctAnswer = sesh.data[sesh.currentIndex].correctAnswer;
+        var answers = _.shuffle(sesh.data[sesh.currentIndex].Answers);
+        this.emit(':ask', `Here we go <break time='1s'/> ${sesh.data[sesh.currentIndex].lyric}, is it A, ${answers[0]}, B, ${answers[1]}, or C, ${answers[2]}`, 'how can I help?');
 
     },
 
     'MakeGuess': function () {
-
+        var sesh = this.event.session.attributes;
         var guess = this.event.request.intent.slots.Artist.value;
         var answer;
         if (guess) {
@@ -33,17 +35,17 @@ var handlers = {
             this.emit(':ask', `Sorry I didn\'t recognise that Artist name.`, 'What was your answer?');
         }
         var correctAnswer = '';
-        if (answer.toLowerCase() === this.event.session.attributes.correctAnswer.toLowerCase()) {
+        if (answer.toLowerCase() === sesh.correctAnswer.toLowerCase()) {
             correctAnswer = answer;
         }
 
         if (correctAnswer !== '') {
-            this.event.session.attributes.score ++;
-            this.event.session.attributes.currentIndex ++;
+            sesh.score ++;
+            sesh.currentIndex ++;
             this.emit(':ask', `Yes ${answer} is correct!`, 'How can I help?');
         } else {
-            this.event.session.attributes.score = this.event.session.attributes.score;
-            this.event.session.attributes.currentIndex ++;
+            sesh.score = sesh.score;
+            sesh.currentIndex ++;
             this.emit(':ask', `Sorry, ${answer} is wrong`);
         }
 
