@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "alexa-sdk": "^1.0.9",
     "underscore": "^1.8.3"
   }
 }
