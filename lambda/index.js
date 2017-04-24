@@ -56,12 +56,12 @@ var quizHandlers = Alexa.CreateStateHandler(states.QUIZ, {
     "PlayGame": function () {
         var sesh = this.event.session.attributes;
         if (sesh.currentIndex === 0) {
-            sesh.response = 'Here is your first question' + " ";
+            sesh.response = 'Here is your first question,' + " ";
         }
         sesh.correctAnswer = sesh.data[sesh.currentIndex].correctAnswer;
         var answers = _.shuffle(sesh.data[sesh.currentIndex].Answers);
 
-        var question = `Question ${sesh.currentIndex + 1} ${sesh.data[sesh.currentIndex].lyric}, is it A, ${answers[0]}, B, ${answers[1]}, or C, ${answers[2]}`;
+        var question = `Question ${sesh.currentIndex + 1}, ${sesh.data[sesh.currentIndex].lyric}, is it A, ${answers[0]}, B, ${answers[1]}, or C, ${answers[2]}`;
         var speech = sesh.response + question;
         this.emit(':ask', speech, question);
     },
