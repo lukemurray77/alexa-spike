@@ -1,0 +1,17 @@
+{
+    "intents": [
+    {
+      "intent": "MakeGuess",
+      "slots": [
+        {
+          "name": "Artist",
+          "type": "AMAZON.Artist"
+        }
+      ]
+    },
+    {
+        "intent": "PlayGame"
+    }
+]
+    
+}

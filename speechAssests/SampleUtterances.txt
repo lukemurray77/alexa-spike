@@ -1,0 +1,2 @@
+PlayGame Play a round
+MakeGuess I think it is {Artist}
